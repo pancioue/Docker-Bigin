@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+    nginx:
+        image: nginx:1.20.0
+        ports:
+            - 80:80
+        volumes:
+            - ./conf.d:/etc/nginx/conf.d
+        networks:
+            - net-lnmp
+    
+    php:
+        build:
+            context: ./php
+        volumes:
+            - ./src:/www
+        networks:
+            - net-lnmp
+  
+    db:
+        image: mariadb:10.6.0
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: laravel
+        volumes:
+            - ./mariadb:/var/lib/mysql 
+        networks:
+            - net-lnmp
+
+    phpmyadmin:
+        image: phpmyadmin:5.1.0
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: db
+            PMA_PORT: 3306
+        networks:
+            - net-lnmp
+
+networks: 
+    net-lnmp:
+        external: true
