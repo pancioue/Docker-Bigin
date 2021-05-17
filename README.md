@@ -1,3 +1,15 @@
+Docker
+===============
+輕量化的虛擬技術  
+虛擬機器透過hypervisor管理各別Guest OS，Docker Containers共用同個OS  
+啟動VM要啟動一整個作業系統，而啟動container相當於啟動一個app，一個程序，所以較為輕量快速
+
+VM vs Docker示意圖:  
+![VM_vs_Docker](https://user-images.githubusercontent.com/24542187/118492854-0b055700-b753-11eb-8ab4-9176b3c6561c.png)  
+
+WSL2下 VM vs Docker示意圖:  
+![WSL2-VM_vs_Docker](https://user-images.githubusercontent.com/24542187/118492916-22444480-b753-11eb-8d4c-0adfae3f7bab.png)
+
 Container Volume
 ============
 用來將資料綁到本地端
