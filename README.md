@@ -268,27 +268,34 @@ http://docker-lnmp.local:8080/index.php
 
 LNMP + Laravel
 =================
+```
+docker pull composer:2.0.8
+# composer:2.0.8以後的版本php是v8版
+```
+
 建立Laravel專案
 ```
-composer create-project --prefer-dist laravel/laravel src
+docker run --rm \
+    -v "$(pwd):/app" \
+    composer:2.0.8 create-project --prefer-dist laravel/laravel:~7 src
 ```
 
 目錄結構:
 ```
 lnmp-laravel
-|___ src
-|    |   app/
-|    |   public/
-|    |   .env
-|    |   ...
+|__ src
+|   |   app/
+|   |   public/
+|   |   .env
+|   |   ...
 |
-|___ conf.d
+|__ conf.d
 |    |   nginx.conf
 |
-|___ mariadb
+|__ mariadb
 |
-|___ php
-     |   Dockerfile
+|__ php
+    |   Dockerfile
 ```
 
 __docker-compose.yml__
@@ -387,4 +394,24 @@ DB_PASSWORD=password
 ```
 docker network create net-lnmp
 docker-compose up -d
+```
+
+多人協作開發
+---------------
+git clone後，安裝相依套件
+```
+docker run --rm \
+    --volume $PWD/src:/app \
+    composer:2.0.8 install
+```
+
+啟動
+```
+docker network create net-lnmp
+docker compose up -d
+```
+
+copy .env.example to .env 調整相關設定 
+```
+php artisan key:generate
 ```
